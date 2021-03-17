@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
