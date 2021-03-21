@@ -1,12 +1,21 @@
 <resources>
     <string name="app_name">Notes</string>
     <string name="first_note_title">Первая заметка</string>
-    <string name="first_note_content">Текст первой заметки</string>
+    <string name="first_note_content">Содержание первой заметки</string>
     <string name="second_note_title">Вторая заметка</string>
-    <string name="second_note_content">Текст второй заметки</string>
+    <string name="second_note_content">Содержание второй заметки</string>
     <string name="third_note_title">Третья заметка</string>
-    <string name="third_note_content">Текст третьей заметки</string>
+    <string name="third_note_content">Содержание третий заметки</string>
     <string name="note_title">Node title</string>
     <string name="note_content">Note content</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_sort">Сортировать</string>
+    <string name="menu_send">Отправить</string>
+    <string name="menu_add_photo">Добавить фото</string>
+    <string name="about">О приложение</string>
+    <string name="settings">Настройки</string>
+    <string name="example">telegraf13666@yandex.ru</string>
+    <string name="icon_android">Icon android</string>
+    <string name="drawer_open">Open navigation</string>
+    <string name="drawer_close">Close navigation</string>
 </resources>

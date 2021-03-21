@@ -1,4 +1,4 @@
-package ru.geekbrains.notes;
+package ru.geekbrains.note;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 
 public class NoteFragment extends Fragment {
 

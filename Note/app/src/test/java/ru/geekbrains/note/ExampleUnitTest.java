@@ -1,4 +1,4 @@
-package ru.geekbrains.notes;
+package ru.geekbrains.note;
 
 import org.junit.Test;
 

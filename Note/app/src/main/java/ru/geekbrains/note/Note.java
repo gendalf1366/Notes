@@ -1,26 +1,25 @@
-package ru.geekbrains.notes;
+package ru.geekbrains.note;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Calendar;
 
-
 public class Note implements Parcelable {
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
+    public static final Parcelable.Creator<Note> CREATOR = new Creator<Note>() {
         @Override
-        public ru.geekbrains.notes.Note createFromParcel(Parcel in) {
-            return new ru.geekbrains.notes.Note(in);
+        public ru.geekbrains.note.Note createFromParcel(Parcel in) {
+            return new ru.geekbrains.note.Note(in);
         }
 
         @Override
-        public ru.geekbrains.notes.Note[] newArray(int size) {
-            return new ru.geekbrains.notes.Note[size];
+        public ru.geekbrains.note.Note[] newArray(int size) {
+            return new ru.geekbrains.note.Note[size];
         }
     };
-    private final String title;
-    private final String content;
-    private final Calendar creationDate;
+    private String title;
+    private String content;
+    private Calendar creationDate;
 
     public Note(String title, String content, Calendar creationDate) {
         this.title = title;
@@ -50,12 +49,23 @@ public class Note implements Parcelable {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Calendar getCreationDate() {
         return creationDate;
     }
 
+    public void setCreationDate(Calendar creationDate) {
+        this.creationDate = creationDate;
+    }
 }
