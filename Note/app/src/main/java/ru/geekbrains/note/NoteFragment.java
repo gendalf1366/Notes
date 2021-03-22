@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class NoteFragment extends Fragment {
 
-    static final String CURRENT_NOTE = "currentNote";
+    public static final String CURRENT_NOTE = "currentNote";
     private Note note;
 
     public static NoteFragment newInstance(Note note) {
@@ -35,13 +37,15 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note, container, false);
-        TextView titleText = view.findViewById(R.id.note_title);
-        TextView noteContentText = view.findViewById(R.id.note_content);
+        TextInputEditText titleText = view.findViewById(R.id.note_title);
+        TextInputEditText contentText = view.findViewById(R.id.note_content);
         TextView dateOfCreationText = view.findViewById(R.id.note_date_of_creation);
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.getDefault());
-        dateOfCreationText.setText(String.format("%s", formatter.format(note.getCreationDate().getTime())));
+        dateOfCreationText.setText(String.format("%s: %s", "Создано", formatter.format(note.getCreationDate().getTime())));
         titleText.setText(note.getTitle());
-        noteContentText.setText(note.getContent());
+        contentText.setText(note.getContent());
+        view.setBackgroundColor(note.getColor());
+        setHasOptionsMenu(true);
         return view;
     }
 }
