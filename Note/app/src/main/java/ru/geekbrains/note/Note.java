@@ -3,26 +3,25 @@ package ru.geekbrains.note;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Calendar;
 
 public class Note implements Parcelable {
-    public static final Creator<Note> CREATOR = new Creator<Note>() {
-        @Override
-        public Note createFromParcel(Parcel in) {
-            return new Note(in);
-        }
-
-        @Override
-        public Note[] newArray(int size) {
-            return new Note[size];
-        }
-    };
     private final String title;
     private final String content;
-    private final Calendar creationDate;
-    private final int color;
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public ru.geekbrains.note.Note createFromParcel(Parcel in) {
+            return new ru.geekbrains.note.Note(in);
+        }
 
-    public Note(String title, String content, Calendar creationDate, int color) {
+        @Override
+        public ru.geekbrains.note.Note[] newArray(int size) {
+            return new ru.geekbrains.note.Note[size];
+        }
+    };
+    private int color;
+    private final String creationDate;
+
+    public Note(String title, String content, String creationDate, int color) {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
@@ -32,21 +31,21 @@ public class Note implements Parcelable {
     protected Note(Parcel in) {
         title = in.readString();
         content = in.readString();
-        creationDate = (Calendar) in.readSerializable();
+        creationDate = in.readString();
         color = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(content);
-        dest.writeSerializable(creationDate);
+        dest.writeString(creationDate);
         dest.writeInt(color);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public String getTitle() {
@@ -57,11 +56,15 @@ public class Note implements Parcelable {
         return content;
     }
 
-    public Calendar getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
     public int getColor() {
         return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
