@@ -5,39 +5,32 @@ import android.os.Parcelable;
 
 
 public class Note implements Parcelable {
-    private final String title;
-    private final String content;
     public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
-        public ru.geekbrains.note.Note createFromParcel(Parcel in) {
-            return new ru.geekbrains.note.Note(in);
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
         }
 
         @Override
-        public ru.geekbrains.note.Note[] newArray(int size) {
-            return new ru.geekbrains.note.Note[size];
+        public Note[] newArray(int size) {
+            return new Note[size];
         }
     };
-    private int color;
+    private String id;
+    private final String title;
+    private final String content;
     private final String creationDate;
 
-    public Note(String title, String content, String creationDate, int color) {
+    public Note(String title, String content, String creationDate) {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
-        this.color = color;
     }
 
     protected Note(Parcel in) {
         title = in.readString();
         content = in.readString();
         creationDate = in.readString();
-        color = in.readInt();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     @Override
@@ -45,7 +38,11 @@ public class Note implements Parcelable {
         dest.writeString(title);
         dest.writeString(content);
         dest.writeString(creationDate);
-        dest.writeInt(color);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public String getTitle() {
@@ -60,11 +57,11 @@ public class Note implements Parcelable {
         return creationDate;
     }
 
-    public int getColor() {
-        return color;
+    public String getId() {
+        return id;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setId(String id) {
+        this.id = id;
     }
 }

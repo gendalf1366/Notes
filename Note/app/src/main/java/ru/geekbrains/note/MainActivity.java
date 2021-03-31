@@ -13,17 +13,16 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ru.geekbrains.note.Navigation navigation;
+    private Navigation navigation;
     private final Publisher publisher = new Publisher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        navigation = new ru.geekbrains.note.Navigation(getSupportFragmentManager());
+        navigation = new Navigation(getSupportFragmentManager());
         initToolbar();
-        getNavigation().addFragment(ListOfNotesFragment.newInstance(), false);
+        getNavigation().addFragment(StartFragment.newInstance(), false);
     }
 
     private void initToolbar() {
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public ru.geekbrains.note.Navigation getNavigation() {
+    public Navigation getNavigation() {
         return navigation;
     }
 
@@ -81,5 +80,4 @@ public class MainActivity extends AppCompatActivity {
         });
         return true;
     }
-
 }
