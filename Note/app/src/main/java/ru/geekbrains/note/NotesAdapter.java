@@ -11,16 +11,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
+public class NotesAdapter extends RecyclerView.Adapter<ru.geekbrains.note.NotesAdapter.ViewHolder> {
     private final Fragment fragment;
+    private NotesSourceInterface dataSource;
     private MyClickListener myClickListener;
-    private final NotesSource dataSource;
     private int menuPosition;
 
-    public NotesAdapter(NotesSource dataSource, Fragment fragment) {
-        this.dataSource = dataSource;
+    public NotesAdapter(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    public void setDataSource(NotesSourceInterface dataSource) {
+        this.dataSource = dataSource;
+        notifyDataSetChanged();
     }
 
     public int getMenuPosition() {
@@ -33,15 +37,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ru.geekbrains.note.NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.getItemLayout().setBackgroundColor(dataSource.getNote(position).getColor());
+    public void onBindViewHolder(@NonNull ru.geekbrains.note.NotesAdapter.ViewHolder holder, int position) {
         holder.getTitleTextView().setText(dataSource.getNote(position).getTitle());
         holder.getDateTextView().setText(dataSource.getNote(position).getCreationDate());
     }
@@ -52,17 +55,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     public interface MyClickListener {
-        void onItemClick(int position, ru.geekbrains.note.Note note);
+        void onItemClick(int position, Note note);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private final LinearLayout itemLayout;
         private final TextView titleTextView;
         private final TextView dateTextView;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-            itemLayout = itemView.findViewById(R.id.element_of_recycler_view);
+            LinearLayout itemLayout = itemView.findViewById(R.id.element_of_recycler_view);
             titleTextView = itemView.findViewById(R.id.first_tv_of_item);
             dateTextView = itemView.findViewById(R.id.second_tv_of_item);
 
@@ -90,10 +92,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             }
         }
 
-        public LinearLayout getItemLayout() {
-            return itemLayout;
-        }
-
         public TextView getTitleTextView() {
             return titleTextView;
         }
@@ -102,5 +100,4 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             return dateTextView;
         }
     }
-
 }
