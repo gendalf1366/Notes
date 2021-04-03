@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 
+import ru.geekbrains.note.MainActivity;
+import ru.geekbrains.note.Navigation;
+import ru.geekbrains.note.R;
 
 
 public class StartFragment extends Fragment {

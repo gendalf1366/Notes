@@ -1,7 +1,8 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.data;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class NoteMapping {
 

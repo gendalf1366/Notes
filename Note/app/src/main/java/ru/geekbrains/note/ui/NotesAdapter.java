@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ru.geekbrains.note.data.Note;
+import ru.geekbrains.note.data.NotesSourceInterface;
+import ru.geekbrains.note.R;
 
 
-public class NotesAdapter extends RecyclerView.Adapter<ru.geekbrains.note.NotesAdapter.ViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
     private final Fragment fragment;
     private NotesSourceInterface dataSource;
     private MyClickListener myClickListener;
@@ -37,14 +40,14 @@ public class NotesAdapter extends RecyclerView.Adapter<ru.geekbrains.note.NotesA
 
     @NonNull
     @Override
-    public ru.geekbrains.note.NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ru.geekbrains.note.NotesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         holder.getTitleTextView().setText(dataSource.getNote(position).getTitle());
         holder.getDateTextView().setText(dataSource.getNote(position).getCreationDate());
     }

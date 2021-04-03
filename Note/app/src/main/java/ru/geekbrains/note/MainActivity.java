@@ -3,6 +3,7 @@ package ru.geekbrains.note;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,10 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
+import ru.geekbrains.note.observe.Publisher;
+import ru.geekbrains.note.ui.ListOfNotesFragment;
+import ru.geekbrains.note.ui.StartFragment;
+
 public class MainActivity extends AppCompatActivity {
     private Navigation navigation;
     private final Publisher publisher = new Publisher();
@@ -20,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.list_of_notes_fragment_container, new ListOfNotesFragment());
+        fragmentTransaction.commit();
+
         navigation = new Navigation(getSupportFragmentManager());
         initToolbar();
         getNavigation().addFragment(StartFragment.newInstance(), false);
@@ -62,21 +72,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return true;
             }
-        });
-        MenuItem sort = menu.findItem(R.id.menu_sort);
-        sort.setOnMenuItemClickListener(item -> {
-            Toast.makeText(ru.geekbrains.note.MainActivity.this, R.string.menu_sort, Toast.LENGTH_SHORT).show();
-            return true;
-        });
-        MenuItem send = menu.findItem(R.id.menu_send);
-        send.setOnMenuItemClickListener(item -> {
-            Toast.makeText(ru.geekbrains.note.MainActivity.this, R.string.menu_send, Toast.LENGTH_SHORT).show();
-            return true;
-        });
-        MenuItem addPhoto = menu.findItem(R.id.menu_add_photo);
-        addPhoto.setOnMenuItemClickListener(item -> {
-            Toast.makeText(ru.geekbrains.note.MainActivity.this, R.string.menu_add_photo, Toast.LENGTH_SHORT).show();
-            return true;
         });
         return true;
     }

@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,18 +8,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
+
+import ru.geekbrains.note.MainActivity;
+import ru.geekbrains.note.data.Note;
+import ru.geekbrains.note.R;
+import ru.geekbrains.note.observe.Publisher;
 
 public class NoteFragment extends Fragment {
 
@@ -27,21 +30,21 @@ public class NoteFragment extends Fragment {
     private Note note;
     private Publisher publisher;
 
-    private TextInputEditText titleText;
-    private TextInputEditText contentText;
+    private EditText titleText;
+    private EditText contentText;
     private TextView dateOfCreationText;
     private String dateOfCreation;
     private boolean isNewNote = false;
 
-    public static ru.geekbrains.note.NoteFragment newInstance(Note note) {
-        ru.geekbrains.note.NoteFragment fragment = new ru.geekbrains.note.NoteFragment();
+    public static NoteFragment newInstance(Note note) {
+        NoteFragment fragment = new NoteFragment();
         Bundle args = new Bundle();
         args.putParcelable(CURRENT_NOTE, note);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static ru.geekbrains.note.NoteFragment newInstance() {
+    public static NoteFragment newInstance() {
         return new NoteFragment();
     }
 
@@ -137,20 +140,8 @@ public class NoteFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         MenuItem addNote = menu.findItem(R.id.menu_add_note);
         MenuItem search = menu.findItem(R.id.menu_search);
-        MenuItem sort = menu.findItem(R.id.menu_sort);
         addNote.setVisible(false);
         search.setVisible(false);
-        sort.setVisible(false);
-        MenuItem send = menu.findItem(R.id.menu_send);
-        send.setOnMenuItemClickListener(item -> {
-            Toast.makeText(getActivity(), R.string.menu_send, Toast.LENGTH_SHORT).show();
-            return true;
-        });
-        MenuItem addPhoto = menu.findItem(R.id.menu_add_photo);
-        addPhoto.setOnMenuItemClickListener(item -> {
-            Toast.makeText(getActivity(), R.string.menu_add_photo, Toast.LENGTH_SHORT).show();
-            return true;
-        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

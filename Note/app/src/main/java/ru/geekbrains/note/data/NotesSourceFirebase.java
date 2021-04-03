@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.data;
 
 import android.util.Log;
 
@@ -21,7 +21,6 @@ public class NotesSourceFirebase implements NotesSourceInterface {
     private final CollectionReference collection = store.collection(NOTES_COLLECTION);
     private List<Note> notes = new ArrayList<>();
 
-    @Override
     public NotesSourceInterface init(final NotesSourceResponse notesSourceResponse) {
         collection.orderBy(NoteMapping.Fields.DATE, Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(task -> {
