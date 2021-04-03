@@ -1,8 +1,7 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.data;
+
 
 public interface NotesSourceInterface {
-
-    NotesSourceInterface init(NotesSourceResponse notesSourceResponse);
 
     Note getNote(int position);
 

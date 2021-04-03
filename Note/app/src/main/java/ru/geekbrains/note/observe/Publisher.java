@@ -1,7 +1,9 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.observe;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.geekbrains.note.data.Note;
 
 public class Publisher {
     private final List<Observer> observers;
