@@ -6,31 +6,34 @@ import android.os.Parcelable;
 import java.util.Calendar;
 
 public class Note implements Parcelable {
-    public static final Parcelable.Creator<Note> CREATOR = new Creator<Note>() {
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
         @Override
-        public ru.geekbrains.note.Note createFromParcel(Parcel in) {
-            return new ru.geekbrains.note.Note(in);
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
         }
 
         @Override
-        public ru.geekbrains.note.Note[] newArray(int size) {
-            return new ru.geekbrains.note.Note[size];
+        public Note[] newArray(int size) {
+            return new Note[size];
         }
     };
-    private String title;
-    private String content;
-    private Calendar creationDate;
+    private final String title;
+    private final String content;
+    private final Calendar creationDate;
+    private final int color;
 
-    public Note(String title, String content, Calendar creationDate) {
+    public Note(String title, String content, Calendar creationDate, int color) {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
+        this.color = color;
     }
 
     protected Note(Parcel in) {
         title = in.readString();
         content = in.readString();
         creationDate = (Calendar) in.readSerializable();
+        color = in.readInt();
     }
 
     @Override
@@ -38,6 +41,7 @@ public class Note implements Parcelable {
         dest.writeString(title);
         dest.writeString(content);
         dest.writeSerializable(creationDate);
+        dest.writeInt(color);
     }
 
     @Override
@@ -49,23 +53,15 @@ public class Note implements Parcelable {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Calendar creationDate) {
-        this.creationDate = creationDate;
+    public int getColor() {
+        return color;
     }
 }
