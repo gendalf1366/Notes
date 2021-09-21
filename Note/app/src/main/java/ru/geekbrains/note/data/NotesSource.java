@@ -1,10 +1,9 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class NotesSource implements NotesSourceInterface, Parcelable {
     public static final Creator<NotesSource> CREATOR = new Creator<NotesSource>() {
@@ -35,15 +34,6 @@ public class NotesSource implements NotesSourceInterface, Parcelable {
     }
 
     @Override
-    public NotesSourceInterface init(NotesSourceResponse notesSourceResponse) {
-        Collections.addAll(notes);
-        if (notesSourceResponse != null) {
-            notesSourceResponse.initialized(this);
-        }
-        return this;
-    }
-
-    @Override
     public Note getNote(int position) {
         return notes.get(position);
     }
@@ -67,4 +57,5 @@ public class NotesSource implements NotesSourceInterface, Parcelable {
     public void addNote(Note note) {
         notes.add(note);
     }
+
 }

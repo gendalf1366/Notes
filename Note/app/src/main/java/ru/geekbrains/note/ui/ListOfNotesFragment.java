@@ -1,4 +1,4 @@
-package ru.geekbrains.note;
+package ru.geekbrains.note.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,17 +20,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Objects;
 
+import ru.geekbrains.note.DeleteDialogFragment;
+import ru.geekbrains.note.MainActivity;
+import ru.geekbrains.note.Navigation;
+import ru.geekbrains.note.data.NotesSourceFirebase;
+import ru.geekbrains.note.data.NotesSourceInterface;
+import ru.geekbrains.note.OnDeleteDialogListener;
+import ru.geekbrains.note.R;
+import ru.geekbrains.note.observe.Publisher;
+
 
 public class ListOfNotesFragment extends Fragment {
 
     private NotesSourceInterface data;
-    private ru.geekbrains.note.NotesAdapter adapter;
+    private NotesAdapter adapter;
     private Navigation navigation;
     private Publisher publisher;
     private boolean moveToFirstPosition;
 
-    public static ru.geekbrains.note.ListOfNotesFragment newInstance() {
-        return new ru.geekbrains.note.ListOfNotesFragment();
+    public static ListOfNotesFragment newInstance() {
+        return new ListOfNotesFragment();
     }
 
     @Override
@@ -65,7 +74,7 @@ public class ListOfNotesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ru.geekbrains.note.NotesAdapter(this);
+        adapter = new NotesAdapter(this);
         recyclerView.setAdapter(adapter);
         DividerItemDecoration itemDecoration = new DividerItemDecoration
                 (requireContext(), LinearLayoutManager.VERTICAL);
@@ -78,7 +87,7 @@ public class ListOfNotesFragment extends Fragment {
             moveToFirstPosition = false;
         }
         adapter.setOnItemClickListener((position, note) -> {
-            navigation.addFragment(ru.geekbrains.note.NoteFragment.newInstance(data.getNote(position)),
+            navigation.addFragment(NoteFragment.newInstance(data.getNote(position)),
                     true);
             publisher.subscribe(note1 -> {
                 data.changeNote(position, note1);
@@ -99,8 +108,23 @@ public class ListOfNotesFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int position = adapter.getMenuPosition();
         if (item.getItemId() == R.id.menu_delete_note) {
-            data.deleteNote(position);
-            adapter.notifyItemRemoved(position);
+            DeleteDialogFragment deleteDlgFragment = new DeleteDialogFragment();
+            deleteDlgFragment.setCancelable(false);
+            deleteDlgFragment.setOnDialogListener(new OnDeleteDialogListener() {
+                @Override
+                public void onDelete() {
+                    data.deleteNote(position);
+                    adapter.notifyItemRemoved(position);
+                    deleteDlgFragment.dismiss();
+                }
+
+                @Override
+                public void onCancelDelete() {
+                    deleteDlgFragment.dismiss();
+                }
+            });
+            deleteDlgFragment.show(requireActivity().getSupportFragmentManager(),
+                    "DeleteFragmentTag");
             return true;
         }
         return super.onContextItemSelected(item);
@@ -109,16 +133,10 @@ public class ListOfNotesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         MenuItem search = menu.findItem(R.id.menu_search);
-        MenuItem sort = menu.findItem(R.id.menu_sort);
         MenuItem addNote = menu.findItem(R.id.menu_add_note);
-        MenuItem send = menu.findItem(R.id.menu_send);
-        MenuItem addPhoto = menu.findItem(R.id.menu_add_photo);
         search.setVisible(true);
-        sort.setVisible(true);
-        send.setVisible(false);
-        addPhoto.setVisible(false);
         addNote.setOnMenuItemClickListener(item -> {
-            navigation.addFragment(ru.geekbrains.note.NoteFragment.newInstance(), true);
+            navigation.addFragment(NoteFragment.newInstance(), true);
             publisher.subscribe(note -> {
                 data.addNote(note);
                 adapter.notifyItemInserted(data.size() - 1);

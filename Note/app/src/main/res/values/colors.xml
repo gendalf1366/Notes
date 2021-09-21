@@ -4,15 +4,4 @@
     <color name="white">#FFFFFF</color>
     <color name="gold">#FFD700</color>
 
-    <color name="navajo_white">#FFDEAD</color>
-    <color name="hot_pink">#FF69B4</color>
-    <color name="plum">#DDA0DD</color>
-    <color name="peru">#CD853F</color>
-    <color name="powder_blue">#B0E0E6</color>
-    <color name="yellow_green">#9ACD32</color>
-    <color name="pale_green">#98FB98</color>
-    <color name="light_sky_blue">#87CEFA</color>
-    <color name="olive">#808000</color>
-    <color name="medium_slate_blue">#7B68EE</color>
-    <color name="dark_turquoise">#00CED1</color>
 </resources>
